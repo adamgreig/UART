@@ -7,7 +7,7 @@ module UART (
     input [07:0] tx_data,
     input        tx_ready,
     output reg   tx,
-    output reg   tx_done);
+    output       tx_done);
 
     reg        bit_clock;
     reg [15:0] clock_counter;
@@ -16,9 +16,11 @@ module UART (
     reg [07:0] tx_buffer;
     reg        tx_loaded;
     reg        tx_ready_last;
+    reg        tx_complete;
 
     wire       tx_ready_edge;
     assign     tx_ready_edge = tx_ready && !tx_ready_last;
+    assign     tx_done       = tx_complete && !tx_loaded;
 
     parameter STATE_IDLE  = 11'b00000000001;
     parameter STATE_START = 11'b00000000010;
@@ -40,7 +42,7 @@ module UART (
         else if (clock_counter == clock_div)
             clock_counter <= 0;
         else
-            clock_counter <= clock_counter + 1;
+            clock_counter <= clock_counter + 16'b1;
     end
 
     // Generate the bit clock from the clock counter
@@ -68,6 +70,7 @@ module UART (
         begin
             tx_loaded <= 0;
         end
+
         else
         begin
             if (tx_ready_edge)
@@ -75,10 +78,12 @@ module UART (
                 tx_buffer <= tx_data;
                 tx_loaded <= 1;
             end
+
             else if (tx_state != STATE_IDLE)
             begin
                 tx_loaded <= 0;
             end
+
         end
     end
 
@@ -87,25 +92,26 @@ module UART (
     begin
         if (!reset)
         begin
-            tx_state <= STATE_IDLE;
-            tx_done  <= 1;
-            tx       <= 1;
+            tx_state     <= STATE_IDLE;
+            tx_complete  <= 1;
+            tx           <= 1;
         end
+        
         else
         begin
             case(tx_state)
                 STATE_IDLE:
                 begin
                     tx      <= 1;
+
                     if (tx_loaded)
                     begin
-                        tx_state  <= STATE_START;
-                        tx_done   <= 0;
+                        tx_state    <= STATE_START;
+                        tx_complete <= 0;
                     end
+
                     else
-                    begin
-                        tx_done   <= 1;
-                    end
+                        tx_complete <= 1;
                 end
 
                 STATE_START:
@@ -164,9 +170,9 @@ module UART (
 
                 STATE_STOP:
                 begin
-                    tx       <= 1;
-                    tx_done  <= 1;
-                    tx_state <= STATE_IDLE;
+                    tx          <= 1;
+                    tx_complete <= 1;
+                    tx_state    <= STATE_IDLE;
                 end
 
                 default:

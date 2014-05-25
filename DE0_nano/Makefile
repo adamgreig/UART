@@ -1,5 +1,9 @@
 DESIGN_NAME=de0nano
 
+sim: de0nano.v de0nano_tb.v ../uart.v
+	iverilog ../uart.v de0nano.v de0nano_tb.v -D VCD -D IV_DUMP -o sim
+	./sim
+
 build: output_files/$(DESIGN_NAME).sof
 
 pgm: output_files/$(DESIGN_NAME).sof
