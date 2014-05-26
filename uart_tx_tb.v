@@ -32,7 +32,7 @@ module UART_TX_TB();
     );
 
     initial begin
-        $dumpfile("waveforms.vcd");
+        $dumpfile("tx.vcd");
         $dumpvars();
         $display("UART_TX Simulation starting...");
 
