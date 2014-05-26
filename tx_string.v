@@ -37,6 +37,7 @@ module TX_STRING (
             state          <= STATE_IDLE;
             tx_ready       <= 0;
             tx_string_done <= 0;
+            addr           <= start_addr;
         end
 
         else
@@ -46,10 +47,10 @@ module TX_STRING (
                 begin
                     tx_ready       <= 0;
                     tx_string_done <= 0;
+                    addr           <= start_addr;
 
                     if (tx_string_ready_edge)
                     begin
-                        addr  <= start_addr;
                         state <= STATE_READY;
                     end
                 end

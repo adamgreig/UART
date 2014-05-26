@@ -54,18 +54,24 @@ module RX_LINE (
 
                 STATE_SAVE:
                 begin
-                    write <= 1;
-
-                    if (rx_data == 8'h0D)
+                    if (rx_data == 8'h0A)
                     begin
                         data         <= 8'h00;
+                        write        <= 1;
                         rx_line_done <= 1;
                         state        <= STATE_IDLE;
+                    end
+
+                    else if (rx_data < 8'h20 || rx_data > 8'h7E)
+                    begin
+                        addr  <= addr - 8'd1;
+                        state <= STATE_WAIT;
                     end
 
                     else
                     begin
                         data  <= rx_data;
+                        write <= 1;
                         state <= STATE_WAIT;
                     end
                 end
@@ -76,7 +82,7 @@ module RX_LINE (
 
                     if (rx_done_edge)
                     begin
-                        addr  <= addr + 1;
+                        addr  <= addr + 8'd1;
                         state <= STATE_SAVE;
                     end
                 end

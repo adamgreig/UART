@@ -70,10 +70,12 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
 #============================================================
 
 #============================================================
-# UART Tx (and GND for USB-serial bridge)
+# UART TX, RX, GND
 #============================================================
 set_location_assignment PIN_L14 -to UART_TX
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_TX
+set_location_assignment PIN_N15 -to UART_RX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_RX
 set_location_assignment PIN_P15 -to UART_GND
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_GND
 
@@ -86,6 +88,10 @@ set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name VERILOG_FILE ../uart_tx.v
+set_global_assignment -name VERILOG_FILE ../uart_rx.v
+set_global_assignment -name VERILOG_FILE ../uart.v
+set_global_assignment -name VERILOG_FILE ../tx_string.v
+set_global_assignment -name VERILOG_FILE ../rx_line.v
 set_global_assignment -name VERILOG_FILE de0nano.v
 
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files

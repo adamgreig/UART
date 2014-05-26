@@ -1,4 +1,4 @@
-all: tx rx tx_string
+all: tx rx tx_string rx_line
 
 tx: uart_tx.v uart_tx_tb.v
 	iverilog uart_tx.v uart_tx_tb.v -D VCP -D IV_DUMP -o tx

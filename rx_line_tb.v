@@ -73,6 +73,10 @@ module RX_LINE_TB();
         #10 rx_data = 8'h0D;
         #10 rx_done = 1;
 
+        #10 rx_done = 0;
+        #10 rx_data = 8'h0A;
+        #10 rx_done = 1;
+
         @(posedge rx_line_done);
 
         #10
