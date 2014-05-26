@@ -1,6 +1,6 @@
 `timescale 10ns / 1ns
 
-module UART_TB();
+module UART_TX_TB();
 
     reg        clock;
     reg [15:0] clock_div = 15'd217;
@@ -21,7 +21,7 @@ module UART_TB();
     always
         #1 clock = ~clock;
 
-    UART UART0 (
+    UART_TX UART0_TX (
         .reset(reset),
         .clock(clock),
         .clock_div(clock_div),
@@ -34,7 +34,7 @@ module UART_TB();
     initial begin
         $dumpfile("waveforms.vcd");
         $dumpvars();
-        $display("Simulation starting...");
+        $display("UART_TX Simulation starting...");
 
         #10
 
@@ -107,7 +107,7 @@ module uart_decoder(
             while (tx != 1)
                 @(tx);
         end
-        $display("%t %c (0x%h)", $time, tx_byte, tx_byte);
+        $display("Received: %t %c (0x%h)", $time, tx_byte, tx_byte);
     end
     endtask
 endmodule

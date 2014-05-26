@@ -27,7 +27,7 @@ module DE0NANO (
     parameter STATE_READY = 4'b0010;
     parameter STATE_WAIT  = 4'b0100;
 
-    UART UART0 (
+    UART_TX UART0_TX (
         .reset(reset),
         .clock(CLOCK_50),
         .clock_div(16'd217),

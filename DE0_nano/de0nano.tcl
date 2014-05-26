@@ -85,7 +85,7 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name VERILOG_FILE ../uart.v
+set_global_assignment -name VERILOG_FILE ../uart_tx.v
 set_global_assignment -name VERILOG_FILE de0nano.v
 
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files

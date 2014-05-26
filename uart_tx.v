@@ -1,4 +1,4 @@
-module UART (
+module UART_TX (
     input        reset,
 
     input        clock,

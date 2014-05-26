@@ -3,6 +3,7 @@ de0nano.qsf
 de0nano.flow.rpt
 de0nano.map.rpt
 de0nano.map.summary
+sim
 db/
 incremental_db/
 output_files/
