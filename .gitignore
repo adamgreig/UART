@@ -1,4 +1,5 @@
 tx
 rx
 tx_string
+rx_line
 *.vcd

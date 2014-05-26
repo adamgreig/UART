@@ -34,6 +34,7 @@ module TX_STRING (
     begin
         if (!reset)
         begin
+            state          <= STATE_IDLE;
             tx_ready       <= 0;
             tx_string_done <= 0;
         end
